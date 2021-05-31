@@ -2,6 +2,7 @@
 #ifndef __PLAY_SCENE__
 #define __PLAY_SCENE__
 
+#include "Obstacle.h"
 #include "Scene.h"
 #include "StarShip.h"
 #include "Target.h"
@@ -32,6 +33,7 @@ private:
 	// Game Objects
 	Target* m_pTarget;
 	StarShip* m_pStarShip;
+	Obstacle* m_pObstacle;
 
 	// UI Controls
 	bool m_bToggleSeek;
