@@ -19,12 +19,21 @@ public:
 
 	// getters and setters
 	float getMaxSpeed() const;
-	float getTurRate() const;
+	float getTurnRate() const;
 	glm::vec2 getDesiredVelocity() const;
+	float getAccelerationRate() const;
+
 
 	void setMaxSpeed(float speed);
 	void setTurnRate(float angle);
 	void setDesiredVelocity(glm::vec2 target_position);
+	void setAccelerationRate(float rate);
+
+	// public member functions
+	void seek();
+	void LookWhereIamGoing(glm::vec2 target_direction);
+
+
 
 private:
 	// private movement variables
@@ -32,6 +41,8 @@ private:
 	float m_turnRate;
 
 	glm::vec2 m_desiredVelocity;
+
+	float m_accelerationRate;
 	// private member functions
 	void m_move();
 };
