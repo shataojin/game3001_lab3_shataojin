@@ -27,10 +27,13 @@ public:
 	void setDesiredVelocity(glm::vec2 target_position);
 
 private:
+	// private movement variables
 	float m_maxSpeed;
 	float m_turnRate;
 
 	glm::vec2 m_desiredVelocity;
+	// private member functions
+	void m_move();
 };
 
 #endif /* defined (__STAR_SHIP__) */

@@ -21,8 +21,7 @@ void PlayScene::draw()
 	drawDisplayList();
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
-
-void PlayScene::moveStarShip() const
+/*void PlayScene::moveStarShip() const
 {
 	if(m_bToggleSeek)
 	{
@@ -31,12 +30,13 @@ void PlayScene::moveStarShip() const
 		m_pStarShip->getTransform()->position += m_pStarShip->getRigidBody()->velocity;
 	}
 }
+*/
 
 void PlayScene::update()
 {
 	updateDisplayList();
 
-	moveStarShip();
+	/*moveStarShip();*/
 }
 
 void PlayScene::clean()
@@ -64,10 +64,13 @@ void PlayScene::start()
 	m_pTarget->getTransform()->position = glm::vec2(600.0f, 300.0f);
 	addChild(m_pTarget);
 
+
 	// Add StarShip to Scene
 	m_pStarShip = new StarShip();
 	m_pStarShip->getTransform()->position = glm::vec2(200.0f, 300.0f);
+	m_pStarShip->setTargetPosition(m_pTarget->getTransform()->position);
 	addChild(m_pStarShip);
+	
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }
@@ -80,7 +83,7 @@ void PlayScene::GUI_Function()
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("GAME3001 - M2021 - Lab 2", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("GAME3001 - M2021 - Lab 3", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
 	/*if(ImGui::Button("Toggle Seek"))
 	{
@@ -95,6 +98,7 @@ void PlayScene::GUI_Function()
 	if(ImGui::SliderFloat2("Target Position", target_position, 0.0f, 800.0f))
 	{
 		m_pTarget->getTransform()->position = glm::vec2(target_position[0], target_position[1]);
+		m_pStarShip->setTargetPosition(m_pTarget->getTransform()->position);
 	}
 	
 	ImGui::End();

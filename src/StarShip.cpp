@@ -16,6 +16,10 @@ StarShip::StarShip()
 	getRigidBody()->isColliding = false;
 	setType(AGENT);
 
+	
+	setCurrentHeading(0.0f);
+
+	
 	m_maxSpeed = 10.0f; // 10 pixels per frame
 	m_turnRate = 5.0f; // 5 degrees per frame
 }
@@ -35,6 +39,7 @@ void StarShip::draw()
 
 void StarShip::update()
 {
+	m_move();
 }
 
 void StarShip::clean()
@@ -63,6 +68,29 @@ void StarShip::setDesiredVelocity(const glm::vec2 target_position)
 	//std::cout << "Desired Velocity: (" << m_desiredVelocity.x << ", " << m_desiredVelocity.y << ")" << std::endl;
 }
 
+
+void StarShip::m_move()
+{
+	auto target_direction = getTargetPosition() - getTransform()->position;
+	
+	target_direction = Util::normalize(target_direction);
+	
+		auto target_roation= Util::signedAngle(getCurrentDirection(), target_direction);
+
+		auto turn_sensitivity = 5.0f;
+	if(abs(target_roation)>turn_sensitivity)
+	{
+		if(target_roation>0.0f)
+		{
+			setCurrentHeading(getCurrentHeading() + getTurRate());
+		}
+		else if(target_roation < 0.0f)
+			{
+				setCurrentHeading(getCurrentHeading() - getTurRate());
+			}
+	}
+}
+
 void StarShip::setMaxSpeed(const float speed)
 {
 	m_maxSpeed = speed;
@@ -72,3 +100,6 @@ void StarShip::setTurnRate(const float angle)
 {
 	m_turnRate = angle;
 }
+
+
+
